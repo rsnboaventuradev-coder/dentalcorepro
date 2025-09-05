@@ -35,49 +35,61 @@ const SetupInicial = {
     renderSetupWizard() {
         return `
             <style>
-                /* CSS SETUP INICIAL */
+                /* CSS SETUP INICIAL - VERSÃO RESPONSIVA */
+                * {
+                    box-sizing: border-box;
+                }
+
                 .setup-workspace {
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     min-height: 100vh;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 20px;
+                    padding: 10px;
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                    overflow-y: auto;
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
                 }
 
                 .setup-container {
                     background: rgba(255, 255, 255, 0.95);
                     backdrop-filter: blur(20px);
-                    border-radius: 20px;
+                    border-radius: 16px;
                     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-                    max-width: 800px;
+                    max-width: 700px;
                     width: 100%;
+                    max-height: 95vh;
                     overflow: hidden;
                     border: 1px solid rgba(255, 255, 255, 0.2);
+                    display: flex;
+                    flex-direction: column;
+                    margin: 0 auto;
                 }
 
                 .setup-header {
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    padding: 30px 40px;
+                    padding: 20px 30px;
                     text-align: center;
                     color: white;
+                    flex-shrink: 0;
                 }
 
                 .setup-logo {
-                    font-size: 48px;
-                    margin-bottom: 15px;
+                    font-size: 36px;
+                    margin-bottom: 10px;
                 }
 
                 .setup-title {
-                    font-size: 28px;
+                    font-size: 24px;
                     font-weight: 700;
-                    margin: 0 0 8px 0;
+                    margin: 0 0 6px 0;
                     letter-spacing: -0.025em;
                 }
 
                 .setup-subtitle {
-                    font-size: 16px;
+                    font-size: 14px;
                     opacity: 0.9;
                     margin: 0;
                     font-weight: 400;
@@ -85,36 +97,39 @@ const SetupInicial = {
 
                 .setup-progress {
                     background: #f8fafc;
-                    padding: 20px 40px;
+                    padding: 16px 30px;
                     border-bottom: 1px solid #e2e8f0;
+                    flex-shrink: 0;
                 }
 
                 .progress-bar {
                     width: 100%;
-                    height: 8px;
+                    height: 6px;
                     background: #e2e8f0;
-                    border-radius: 4px;
+                    border-radius: 3px;
                     overflow: hidden;
-                    margin-bottom: 12px;
+                    margin-bottom: 10px;
                 }
 
                 .progress-fill {
                     height: 100%;
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    border-radius: 4px;
+                    border-radius: 3px;
                     transition: width 0.3s ease;
                 }
 
                 .progress-text {
-                    font-size: 14px;
+                    font-size: 12px;
                     color: #4a5568;
                     font-weight: 600;
                     text-align: center;
                 }
 
                 .setup-content {
-                    padding: 40px;
-                    min-height: 400px;
+                    padding: 20px 30px;
+                    overflow-y: auto;
+                    flex: 1;
+                    max-height: calc(95vh - 200px);
                 }
 
                 .step-content {
@@ -127,36 +142,36 @@ const SetupInicial = {
                 }
 
                 @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
+                    from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
 
                 .step-title {
-                    font-size: 24px;
+                    font-size: 20px;
                     font-weight: 700;
                     color: #2d3748;
-                    margin: 0 0 8px 0;
+                    margin: 0 0 6px 0;
                     display: flex;
                     align-items: center;
-                    gap: 12px;
+                    gap: 8px;
                 }
 
                 .step-description {
-                    font-size: 16px;
+                    font-size: 14px;
                     color: #718096;
-                    margin: 0 0 30px 0;
-                    line-height: 1.6;
+                    margin: 0 0 20px 0;
+                    line-height: 1.5;
                 }
 
                 .form-grid {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    margin-bottom: 20px;
+                    gap: 16px;
+                    margin-bottom: 16px;
                 }
 
                 .form-group {
-                    margin-bottom: 20px;
+                    margin-bottom: 16px;
                 }
 
                 .form-group.full-width {
@@ -167,8 +182,8 @@ const SetupInicial = {
                     display: block;
                     font-weight: 600;
                     color: #2d3748;
-                    margin-bottom: 8px;
-                    font-size: 14px;
+                    margin-bottom: 6px;
+                    font-size: 13px;
                 }
 
                 .form-label.required::after {
@@ -180,10 +195,10 @@ const SetupInicial = {
                 .form-select,
                 .form-textarea {
                     width: 100%;
-                    padding: 14px 16px;
+                    padding: 10px 12px;
                     border: 2px solid #e2e8f0;
-                    border-radius: 10px;
-                    font-size: 16px;
+                    border-radius: 8px;
+                    font-size: 14px;
                     transition: all 0.2s ease;
                     background: white;
                     color: #2d3748;
@@ -200,26 +215,27 @@ const SetupInicial = {
 
                 .form-textarea {
                     resize: vertical;
-                    min-height: 100px;
+                    min-height: 80px;
                 }
 
                 .specialties-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 12px;
-                    margin-top: 20px;
+                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 10px;
+                    margin-top: 16px;
                 }
 
                 .specialty-item {
                     display: flex;
                     align-items: center;
-                    gap: 8px;
-                    padding: 12px;
+                    gap: 6px;
+                    padding: 10px;
                     background: #f7fafc;
                     border: 2px solid #e2e8f0;
-                    border-radius: 8px;
+                    border-radius: 6px;
                     cursor: pointer;
                     transition: all 0.2s ease;
+                    font-size: 13px;
                 }
 
                 .specialty-item:hover {
@@ -233,31 +249,32 @@ const SetupInicial = {
                 }
 
                 .specialty-checkbox {
-                    width: 18px;
-                    height: 18px;
+                    width: 16px;
+                    height: 16px;
                     accent-color: #667eea;
                 }
 
                 .setup-actions {
-                    padding: 20px 40px;
+                    padding: 16px 30px;
                     background: #f8fafc;
                     border-top: 1px solid #e2e8f0;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    flex-shrink: 0;
                 }
 
                 .setup-btn {
-                    padding: 14px 28px;
+                    padding: 10px 20px;
                     border: none;
-                    border-radius: 10px;
+                    border-radius: 8px;
                     font-weight: 600;
-                    font-size: 16px;
+                    font-size: 14px;
                     cursor: pointer;
                     transition: all 0.2s ease;
                     display: flex;
                     align-items: center;
-                    gap: 8px;
+                    gap: 6px;
                 }
 
                 .setup-btn.primary {
@@ -270,9 +287,9 @@ const SetupInicial = {
                     color: #4a5568;
                 }
 
-                .setup-btn:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                .setup-btn:hover:not(:disabled) {
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                 }
 
                 .setup-btn:disabled {
@@ -283,80 +300,161 @@ const SetupInicial = {
 
                 .welcome-animation {
                     text-align: center;
-                    padding: 40px 20px;
+                    padding: 20px 10px;
                 }
 
                 .welcome-icon {
-                    font-size: 80px;
-                    margin-bottom: 20px;
+                    font-size: 60px;
+                    margin-bottom: 16px;
                     animation: bounce 2s infinite;
                 }
 
                 @keyframes bounce {
                     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-                    40% { transform: translateY(-10px); }
-                    60% { transform: translateY(-5px); }
+                    40% { transform: translateY(-8px); }
+                    60% { transform: translateY(-4px); }
                 }
 
                 .feature-list {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 20px;
-                    margin-top: 30px;
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 12px;
+                    margin-top: 20px;
                 }
 
                 .feature-item {
                     display: flex;
                     align-items: flex-start;
-                    gap: 12px;
-                    padding: 16px;
+                    gap: 8px;
+                    padding: 12px;
                     background: #f7fafc;
-                    border-radius: 10px;
+                    border-radius: 8px;
                     border: 1px solid #e2e8f0;
                 }
 
                 .feature-icon {
-                    font-size: 24px;
-                    margin-top: 2px;
+                    font-size: 20px;
+                    margin-top: 1px;
                 }
 
                 .feature-text h4 {
-                    margin: 0 0 4px 0;
+                    margin: 0 0 2px 0;
                     color: #2d3748;
                     font-weight: 600;
+                    font-size: 13px;
                 }
 
                 .feature-text p {
                     margin: 0;
                     color: #718096;
-                    font-size: 14px;
-                    line-height: 1.4;
+                    font-size: 12px;
+                    line-height: 1.3;
                 }
 
                 /* Responsividade */
                 @media (max-width: 768px) {
+                    .setup-workspace {
+                        padding: 5px;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                    }
+                    
                     .setup-container {
-                        margin: 10px;
+                        margin: 0;
+                        border-radius: 12px;
+                        max-height: 98vh;
+                    }
+                    
+                    .setup-header {
+                        padding: 16px 20px;
+                    }
+                    
+                    .setup-logo {
+                        font-size: 32px;
+                        margin-bottom: 8px;
+                    }
+                    
+                    .setup-title {
+                        font-size: 20px;
                     }
                     
                     .setup-content {
-                        padding: 30px 20px;
+                        padding: 16px 20px;
+                        max-height: calc(98vh - 180px);
                     }
                     
                     .form-grid {
                         grid-template-columns: 1fr;
+                        gap: 12px;
                     }
                     
                     .setup-actions {
-                        padding: 20px;
+                        padding: 12px 20px;
                         flex-direction: column;
-                        gap: 12px;
+                        gap: 8px;
                     }
                     
                     .setup-btn {
                         width: 100%;
                         justify-content: center;
+                        padding: 12px 20px;
                     }
+                    
+                    .specialties-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .feature-list {
+                        grid-template-columns: 1fr;
+                        gap: 8px;
+                    }
+                    
+                    .step-title {
+                        font-size: 18px;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .setup-container {
+                        border-radius: 8px;
+                    }
+                    
+                    .setup-header {
+                        padding: 12px 16px;
+                    }
+                    
+                    .setup-content {
+                        padding: 12px 16px;
+                    }
+                    
+                    .setup-actions {
+                        padding: 10px 16px;
+                    }
+                    
+                    .form-input,
+                    .form-select,
+                    .form-textarea {
+                        font-size: 16px; /* Evita zoom no iOS */
+                    }
+                }
+
+                /* Melhorar scroll */
+                .setup-content::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                .setup-content::-webkit-scrollbar-track {
+                    background: #f1f1f1;
+                    border-radius: 3px;
+                }
+
+                .setup-content::-webkit-scrollbar-thumb {
+                    background: #c1c1c1;
+                    border-radius: 3px;
+                }
+
+                .setup-content::-webkit-scrollbar-thumb:hover {
+                    background: #a1a1a1;
                 }
             </style>
 
@@ -637,14 +735,14 @@ const SetupInicial = {
                             <div class="specialty-item" onclick="SetupInicial.toggleSpecialty('${specialty.id}')">
                                 <input type="checkbox" class="specialty-checkbox" name="specialties" value="${specialty.id}" id="${specialty.id}">
                                 <label for="${specialty.id}" style="cursor: pointer; display: flex; align-items: center; gap: 8px; flex: 1;">
-                                    <span style="font-size: 20px;">${specialty.icon}</span>
+                                    <span style="font-size: 18px;">${specialty.icon}</span>
                                     <span style="font-weight: 600;">${specialty.name}</span>
                                 </label>
                             </div>
                         `).join('')}
                     </div>
                     
-                    <div class="form-group" style="margin-top: 30px;">
+                    <div class="form-group" style="margin-top: 20px;">
                         <label class="form-label">Outras especialidades ou procedimentos especiais</label>
                         <textarea class="form-textarea" name="otherSpecialties" placeholder="Descreva outros procedimentos que você realiza..."></textarea>
                     </div>
@@ -696,11 +794,11 @@ const SetupInicial = {
                         
                         <div class="form-group full-width">
                             <label class="form-label">Dias de Funcionamento</label>
-                            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;">
                                 ${['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'].map((day, index) => `
-                                    <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f7fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                    <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #f7fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
                                         <input type="checkbox" name="workDays" value="${index}" id="day${index}" ${index < 5 ? 'checked' : ''}>
-                                        <label for="day${index}" style="cursor: pointer; font-size: 14px; font-weight: 500;">${day}</label>
+                                        <label for="day${index}" style="cursor: pointer; font-size: 12px; font-weight: 500;">${day}</label>
                                     </div>
                                 `).join('')}
                             </div>
@@ -727,18 +825,18 @@ const SetupInicial = {
                         
                         <div class="form-group full-width">
                             <label class="form-label">Lembrete para Pacientes</label>
-                            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
-                                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f7fafc; border-radius: 6px;">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;">
+                                <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #f7fafc; border-radius: 6px;">
                                     <input type="checkbox" name="reminderEmail" id="reminderEmail" checked>
-                                    <label for="reminderEmail" style="cursor: pointer; font-size: 14px;">📧 E-mail</label>
+                                    <label for="reminderEmail" style="cursor: pointer; font-size: 12px;">📧 E-mail</label>
                                 </div>
-                                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f7fafc; border-radius: 6px;">
+                                <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #f7fafc; border-radius: 6px;">
                                     <input type="checkbox" name="reminderWhatsapp" id="reminderWhatsapp" checked>
-                                    <label for="reminderWhatsapp" style="cursor: pointer; font-size: 14px;">📱 WhatsApp</label>
+                                    <label for="reminderWhatsapp" style="cursor: pointer; font-size: 12px;">📱 WhatsApp</label>
                                 </div>
-                                <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: #f7fafc; border-radius: 6px;">
+                                <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: #f7fafc; border-radius: 6px;">
                                     <input type="checkbox" name="reminderSms" id="reminderSms">
-                                    <label for="reminderSms" style="cursor: pointer; font-size: 14px;">💬 SMS</label>
+                                    <label for="reminderSms" style="cursor: pointer; font-size: 12px;">💬 SMS</label>
                                 </div>
                             </div>
                         </div>
@@ -958,6 +1056,11 @@ const SetupInicial = {
         // Limpar outros dados de demo
         localStorage.removeItem('dentalcore_demo_appointments');
         localStorage.removeItem('dentalcore_demo_treatments');
+        
+        // Limpar dados antigos de sistema
+        localStorage.removeItem('dentalcore_patients');
+        localStorage.removeItem('dentalcore_appointments');
+        localStorage.removeItem('dentalcore_budgets');
         
         console.log('🗑️ Dados de demonstração limpos');
     },
