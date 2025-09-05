@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DentalCore Pro - Sistema Odontológico Profissional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-900 to-gray-900">
+        <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">DentalCore Pro</h1>
+                <p class="text-gray-400">Sistema Odontológico Profissional</p>
+            </div>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Usuário</label>
+                    <input type="text" id="username" value="dentista" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
+                    <input type="password" id="password" value="123456" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300">
+                    Entrar
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center text-sm text-gray-400">
+                <p>Credenciais de teste:</p>
+                <p>dentista / 123456 | admin / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aplicação Principal -->
+    <div id="mainApp" class="hidden flex h-screen bg-gray-900">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
+            <!-- Header da Sidebar -->
+            <div class="p-6 border-b border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">DentalCore Pro</h1>
+                        <p class="text-xs text-gray-400">v2.0.0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações do Usuário -->
+            <div class="p-4 border-b border-gray-700">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                        <span id="userInitials" class="text-white text-sm font-bold">DR</span>
+                    </div>
+                    <div class="flex-1">
+                        <p id="userName" class="text-white text-sm font-medium">Dr. João Silva</p>
+                        <p class="text-gray-400 text-xs">Dentista</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navegação Principal -->
+            <nav class="flex-1 px-4 py-6">
+                <div class="space-y-2">
+                    <button onclick="showTab('dashboard')" class="sidebar-btn active w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg bg-blue-600 text-white transition-all duration-200" data-tab="dashboard">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2V7m0 0V5a2 2 0 012-2h6l2 2h6a2 2 0 012 2v2M7 13h10m-5-6v6"/>
+                        </svg>
+                        <span class="font-medium">Dashboard</span>
+                    </button>
+                    
+                    <button onclick="showTab('schedule')" class="sidebar-btn w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200" data-tab="schedule">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span class="font-medium">Agenda</span>
+                    </button>
+                    
+                    <button onclick="showTab('patients')" class="sidebar-btn w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200" data-tab="patients">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span class="font-medium">Pacientes</span>
+                    </button>
+                    
+                    <button onclick="showTab('reports')" class="sidebar-btn w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200" data-tab="reports">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span class="font-medium">Relatórios</span>
+                    </button>
+                    
+                    <button onclick="showTab('laboratorios')" class="sidebar-btn" data-tab="laboratorios">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+    </svg>
+    <span>Laboratórios</span>
+</button>
+                    <button onclick="showTab('settings')" class="sidebar-btn w-full flex items-center space-x-3 px-4 py-3 text-left rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-200" data-tab="settings">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span class="font-medium">Configurações</span>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Footer da Sidebar -->
+            <div class="p-4 border-t border-gray-700">
+                <button onclick="handleLogout()" class="w-full flex items-center space-x-3 px-4 py-2 text-left rounded-lg text-red-400 hover:bg-red-900 hover:bg-opacity-20 transition-all duration-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    <span class="font-medium">Sair</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Área Principal -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header do Conteúdo -->
+            <header class="bg-gray-800 border-b border-gray-700 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="pageTitle" class="text-xl font-semibold text-white">Dashboard</h2>
+                        <p id="pageSubtitle" class="text-sm text-gray-400">Visão geral do sistema</p>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="text-sm text-gray-400">
+                            <span id="currentDate"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Conteúdo Principal -->
+            <main id="main-content" class="flex-1 overflow-auto bg-gray-900">
+                <div class="p-8 text-center">
+                    <div class="text-4xl mb-4">⏳</div>
+                    <h2 class="text-2xl font-bold text-white mb-2">Carregando Sistema...</h2>
+                    <p class="text-gray-400">Inicializando módulos do DentalCore Pro</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts Core -->
+    <script src="js/core/ui.js"></script>
+    <script src="js/core/dataPersistence.js"></script>
+    <script src="js/core/auth.js"></script>
+
+        <!-- Scripts dos Módulos Externos -->
+    <script src="js/modules/orcamentos.js"></script>
+    <script src="js/modules/orcamentos-odontograma.js"></script>
+    <script src="js/modules/anamnese.js"></script>
+    <script src="js/modules/agenda-profissional.js"></script>
+    <script src="js/modules/budgets.js"></script>
+    <script src="js/modules/dashboard-premium.js"></script>
+    <script src="js/modules/debitos-profissional.js"></script>
+    <script src="js/modules/documentos-profissional.js"></script>
+    <script src="js/modules/dentalcore-integrations.js"></script>
+    <script src="js/modules/dentalcore-backup.js"></script>
+    <script src="js/modules/tratamentos.js"></script>
+
+    <!-- Sistema de Imagens Premium -->
+    <script src="js/modules/imagens.js"></script>
+    <script src="js/modules/upload-imagens.js"></script>
+    <script src="js/modules/image-annotations.js"></script>
+    
+    <!-- Sistema de Documentos Premium -->
+    <script src="js/modules/documentos-profissional.js"></script>
+
+    <!-- Sistema Financeiro Premium -->
+    <script src="js/modules/debitos-profissional.js"></script>
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Sistema de Relatórios Premium -->
+    <script src="js/modules/relatorios-premium.js"></script>
+    <!-- Sistema de Laboratórios Premium -->
+    <script src="js/modules/laboratorios-profissional.js"></script>
+    <!-- Sistema de Configurações Premium -->
+    <script src="js/modules/configuracoes-sistema.js"></script>
+    <!-- Sincronização Google Calendar -->
+    <script src="js/modules/google-calendar-sync.js"></script>
+   <!-- Firebase Multi-usuário -->
+    <script src="js/modules/firebase-sync.js"></script>
+    <!-- Gerenciador de Usuários -->
+<script src="js/modules/usuario-manager.js"></script>
+    <!-- Script Principal da Aplicação -->
+    <script src="js/app.js"></script>
+</body>
+</html>
