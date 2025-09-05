@@ -3,6 +3,20 @@
 // Sistema Odontológico Inteligente com Prontuário Premium Integrado
 // ============================================================================
 
+// Inicializar módulos
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar se precisa fazer setup inicial
+    if (typeof SetupInicial !== 'undefined' && SetupInicial.needsSetup()) {
+        SetupInicial.init();
+        return; // Parar aqui e mostrar setup
+    }
+    
+    // Continuar com inicialização normal...
+    if (typeof AuthComplete !== 'undefined') {
+        AuthComplete.init();
+        // resto do código...
+    }
+});
 let currentTab = 'dashboard';
 let currentPatient = null;
 let currentPatientTab = 'sobre';
@@ -1054,3 +1068,4 @@ window.openPatientDetails = openPatientDetails;
 window.showPatientTab = showPatientTab;
 
 console.log('✅ App principal carregado com Prontuário Completo integrado!');
+
