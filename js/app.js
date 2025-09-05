@@ -7,6 +7,12 @@ let currentTab = 'dashboard';
 let currentPatient = null;
 let currentPatientTab = 'sobre';
 
+// Configuração para produção
+const IS_PRODUCTION = window.location.protocol === 'https:';
+const BASE_URL = IS_PRODUCTION ? window.location.origin : '';
+
+console.log(`🚀 DentalCore Pro rodando em modo: ${IS_PRODUCTION ? 'PRODUÇÃO' : 'DESENVOLVIMENTO'}`);
+
 // ============================================================================
 // FUNÇÕES PRINCIPAIS DE NAVEGAÇÃO
 // ============================================================================
@@ -993,10 +999,29 @@ function clearPatientForm() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Inicializando DentalCore Pro v2.0.0...');
     
-    // Inicializar módulos básicos
-    if (typeof SimpleAuth !== 'undefined') SimpleAuth.init();
+    // Inicializar módulos
+document.addEventListener('DOMContentLoaded', function() {
+    // Usar AuthComplete em vez de SimpleAuth
+    if (typeof AuthComplete !== 'undefined') {
+        AuthComplete.init();
+        
+        // Verificar se usuário já está logado
+        if (AuthComplete.checkLoggedUser()) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            AuthComplete.updateUserInterface();
+            showTab('dashboard');
+        } else {
+            // Renderizar interface de login/cadastro
+            document.getElementById('loginScreen').innerHTML = AuthComplete.renderAuthInterface();
+        }
+    }
+    
+    // Outros módulos...
     if (typeof DataPersistence !== 'undefined') DataPersistence.init();
     if (typeof UI !== 'undefined') UI.init();
+    if (typeof FirebaseSync !== 'undefined') FirebaseSync.init();
+});
     
     // Inicializar módulos premium
     if (typeof Anamnese !== 'undefined') Anamnese.init();
